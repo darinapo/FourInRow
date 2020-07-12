@@ -4,12 +4,13 @@ public abstract class AbstractPlayer
 {
     private int Id;
     private String Color;
-    private int Count = 0;//Always start from 0
+    private int Score = 0;//Always start from 0
 
     //---------------------Private Methods----------------------------------
 
 
     //---------------------Public Methods-----------------------------------
+    public AbstractPlayer(int id){ Id=id;}
     abstract public int Move();
     public int getId() {
         return Id;
@@ -22,11 +23,11 @@ public abstract class AbstractPlayer
     }
     public void setColor(String color){
         Color = color;
-    }
-    public int getCount(){
-        return Count;
+    };
+    public int getScore(){
+        return Score;
     }
     public void IncreaseCount(){
-        Count++;
+        Score++;
     }
 }

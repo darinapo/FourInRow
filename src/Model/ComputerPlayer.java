@@ -1,8 +1,8 @@
 package Model;
 
-public class HumanPlayer extends AbstractPlayer{
+public class ComputerPlayer extends AbstractPlayer {
 
-    public HumanPlayer(int id){
+    public ComputerPlayer(int id) {
         super(id);
     }
 

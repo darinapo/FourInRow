@@ -35,7 +35,6 @@ public class Board{
     }
     public void ResetBoard(){
         System.out.println("Resetting board:");
-        System.out.println();
         for(int row = 0 ; row < RowSize; row++){
             for(int col = 0 ; col < ColumnSize; col++){
                 GameBoard[row][col] = -1;
