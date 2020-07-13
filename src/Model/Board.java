@@ -1,26 +1,22 @@
 package Model;
 import java.util.ArrayList;
 import java.util.Arrays;
-//Singelton class
+
 public class Board{
-    private int RowSize = 8;//default value
-    private int ColumnSize = 8;//default value
-    private int[][] GameBoard; //Game board
-    private static Board BoardInstance = null;
+    static int RowSize;
+    static int ColumnSize;
+    static int[][] GameBoard; //Game board
 
     //---------------------Private Methods----------------------------------
-    private Board(){
+    public Board(int row , int col ){
         //default 8*8
+        RowSize = row;
+        ColumnSize = col;
         GameBoard = new int[RowSize][ColumnSize];
-        ResetBoard(); //resetting board with -1
+        ResetBoard();
     }
 
     //---------------------Public Methods-----------------------------------
-    public static Board GetBoardInstance(){
-       if(BoardInstance == null)
-           BoardInstance = new Board();
-       return BoardInstance;
-    }
 
     public int getColumnSize() {
         return ColumnSize;
