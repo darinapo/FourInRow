@@ -15,9 +15,4 @@ public class Print implements PrintInterface {
             System.out.println();
         }
     }
-
-    @Override
-    public void print(String str) {
-        System.out.println(str);
-    }
 }

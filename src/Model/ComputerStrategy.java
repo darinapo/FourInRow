@@ -5,6 +5,6 @@ public class ComputerStrategy implements MoveStrategies{
     @Override
     public int DoSomething() {
         Random rand = new Random();
-        return rand.nextInt(Board.RowSize+1);//from 0 to rowSize
+        return rand.nextInt(Board.ColumnSize);//from 0 to colSize
     }
 }

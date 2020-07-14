@@ -42,6 +42,5 @@ public abstract class AbstractPlayer
 
     public MoveStrategies getStrategy(){ return Strategy;}
 
-    abstract public int Move();
-
+    public abstract int Move();
 }

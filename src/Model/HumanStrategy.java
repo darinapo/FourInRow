@@ -9,7 +9,7 @@ public class HumanStrategy implements MoveStrategies {
     public int DoSomething() {
         int col = -1;
         while (isFlag()) {
-            String s = System.console().readLine().trim();
+            String s = System.console().readLine();
             try {
                 col = Integer.parseInt(s);
                 setFlag(false);

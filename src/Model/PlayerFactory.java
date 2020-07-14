@@ -5,7 +5,7 @@ public class PlayerFactory {
     private int PlayerId = 0; //default value
     public AbstractPlayer GetPlayer(String player){
         PlayerId++;
-        if(player == "human") {
+        if(player == "Human") {
             return new HumanPlayer(PlayerId, new HumanStrategy());
         }
         else if(player == "Computer") {
