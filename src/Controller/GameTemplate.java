@@ -1,19 +1,19 @@
 package Controller;
 
 public abstract class GameTemplate {
-    abstract public void Initialize();
-    abstract public void StartPlay();
-    abstract public void EndPlay();
+    abstract public void initialize();
+    abstract public void startPlay();
+    abstract public void endPlay();
     //template method
     public final void Play(){
 
         //initialize the game
-        Initialize();
+        initialize();
 
         //start game
-        StartPlay();
+        startPlay();
 
         //end game
-        EndPlay();
+        endPlay();
     }
 }

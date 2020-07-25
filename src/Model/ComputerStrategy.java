@@ -3,8 +3,8 @@ import java.util.Random;
 
 public class ComputerStrategy implements MoveStrategies{
     @Override
-    public int DoSomething() {
+    public int chooseMove() {
         Random rand = new Random();
-        return rand.nextInt(Board.ColumnSize);//from 0 to colSize
+        return rand.nextInt(/*Board.ColumnSize*/7);//from 0 to colSize
     }
 }

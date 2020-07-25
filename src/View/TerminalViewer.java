@@ -1,10 +1,10 @@
 package View;
 import Model.Board;
 
-public class Print implements PrintInterface {
+public class TerminalViewer implements ViewerInterface {
 
     @Override
-    public void print(Board board) {
+    public void display(Board board) {
         System.out.println("Printing board:");
         System.out.println();
         for(int row = 0 ; row < board.getRowSize(); row++){

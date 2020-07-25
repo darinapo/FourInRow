@@ -1,40 +1,44 @@
 package Model;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Board{
-    static int RowSize;
-    static int ColumnSize;
-    static int[][] GameBoard; //Game board
+    private int rowSize;
+    private int columnSize;
+    private int[][] gameBoard; //Game board
+    private int numberOfWinningDiscs;
 
     //---------------------Private Methods----------------------------------
-    public Board(int row , int col ){
-        //default 8*8
-        RowSize = row;
-        ColumnSize = col;
-        GameBoard = new int[RowSize][ColumnSize];
-        ResetBoard();
+    public Board(int row , int col, int numOfWinningDiscs){
+        rowSize = row;
+        columnSize = col;
+        numberOfWinningDiscs = numOfWinningDiscs;
+        gameBoard = new int[rowSize][columnSize];
+        resetBoard();
     }
 
     //---------------------Public Methods-----------------------------------
 
-    public int getColumnSize() {
-        return ColumnSize;
-    }
 
     public int getRowSize() {
-        return RowSize;
+        return rowSize;
+    }
+
+    public int getColumnSize() {
+        return columnSize;
+    }
+
+    public int getNumberOfWinningDiscs() {
+        return numberOfWinningDiscs;
     }
 
     public int[][] getGameBoard() {
-        return GameBoard;
+        return gameBoard;
     }
 
-    public void ResetBoard(){
+    public void resetBoard(){
         System.out.println("Resetting board:");
-        for(int row = 0 ; row < RowSize; row++){
-            for(int col = 0 ; col < ColumnSize; col++){
-                GameBoard[row][col] = 0;
+        for(int row = 0; row < rowSize; row++){
+            for(int col = 0; col < columnSize; col++){
+                gameBoard[row][col] = 0;
             }
         }
     }
@@ -44,7 +48,7 @@ public class Board{
     public int GetRowAfterPlayerMove(int col){
         int i = 0;
         while(i<getRowSize()){
-            if(GameBoard[i][col] != 0){
+            if(gameBoard[i][col] != 0){
                 i++;
             }
             else
@@ -56,16 +60,28 @@ public class Board{
 
     //Maybe can be optimized?
     public boolean BoardIsNotFull(){
-        for(int i = 0 ; i< RowSize ; i++) {
-            for (int j = 0; j < ColumnSize; j++) {
-                if (GameBoard[i][j] == 0)
+        for(int i = 0; i< rowSize; i++) {
+            for (int j = 0; j < columnSize; j++) {
+                if (gameBoard[i][j] == 0)
                     return true;
             }
         }
         return false;
     }
-    public void SetPlayerDisk(int row, int col , int playerId){
-        GameBoard[row][col] = playerId;
+    public void setPlayerDisc(int row, int col , int playerId){
+        gameBoard[row][col] = playerId;
+    }
+
+    public Integer getDiscAtBoard(int row, int col) {
+        return gameBoard[row][col];
+    }
+
+    public void clearChoice (int row, int col) {
+        gameBoard[row][col] = 0;
+    }
+
+    public Boolean isEmptyCell (int row, int col) {
+        return gameBoard[row][col] == 0;
     }
 }
 

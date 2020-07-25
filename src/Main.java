@@ -1,10 +1,10 @@
-import Controller.GameManger;
+import Controller.Game;
 public class Main {
 
     public static void main(String[] args){
 
-        GameManger gameManger = new GameManger();
-        gameManger.Play();
+        Game game = new Game();
+        game.Play();
         return;
     }
 }

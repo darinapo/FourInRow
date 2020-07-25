@@ -6,7 +6,7 @@ public class HumanStrategy implements MoveStrategies {
 
     //Will read an input from keyword
     @Override
-    public int DoSomething() {
+    public int chooseMove() {
         int col = -1;
         while (isFlag()) {
             String s = System.console().readLine();

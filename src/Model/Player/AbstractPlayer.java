@@ -1,27 +1,40 @@
-package Model;
+package Model.Player;
+
+import Model.Board;
 
 public abstract class AbstractPlayer
 {
-    private int Id;
+    private int id;
+    private String name;
     private String Color;
     private int Score = 0;//Always start from 0
-    private MoveStrategies Strategy;
+//    private MoveStrategies Strategy;
 
     //---------------------Private Methods----------------------------------
 
 
     //---------------------Public Methods-----------------------------------
     //Constructor
-    public AbstractPlayer(int id, MoveStrategies strategy){
-        Id=id;
-        Strategy = strategy;
+    public AbstractPlayer(int id, String name/*, MoveStrategies strategy*/){
+        this.id =id;
+        this.name = name;
+//        Strategy = strategy;
     }
+
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getColor() {
@@ -40,7 +53,9 @@ public abstract class AbstractPlayer
         Score++;
     }
 
-    public MoveStrategies getStrategy(){ return Strategy;}
+//    public MoveStrategies getStrategy(){
+//        return Strategy;
+//    }
 
-    public abstract int Move();
+    public abstract int getMove(Board board);
 }
