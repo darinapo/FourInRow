@@ -27,7 +27,7 @@ public class TerminalConnection implements Observer {
         List<String> gameMenu = GameMenu.getInitGameMenu();
         printMenu(gameMenu);
         int choise = Integer.parseInt(terminalInput.nextLine()); // no exception handling...
-
+        initGame(choise);
     }
 
     private void printMenu(List<String> gameMenu) {
@@ -40,18 +40,40 @@ public class TerminalConnection implements Observer {
     public void initGame(int gameModeInt) {
         gameState = GameManager.getInstance().createNewGame(gameModeInt);
         gameState.attach(this);
+        update();
     }
 
     @Override
     public void update() {
         printBoard(gameState.getBoard());
-        printWhosNextTurn(gameState.getCurrentPlayer());
+        if (gameState.getWinner()) {
+            printWinner(gameState.getCurrentPlayer());
+        } else {
+            printWhosNextTurn(gameState.getCurrentPlayer());
+        }
     }
 
     private void printWhosNextTurn(int currentPlayer) {
         System.out.print("Player " + currentPlayer + ", choose a column: ");
-        int col = Integer.parseInt(terminalInput.nextLine()); // no exception handling...
-        col--;
+        int colIndex = Integer.parseInt(terminalInput.nextLine()); // no exception handling...
+        colIndex--;
+        setPlayerMove(colIndex);
+    }
+
+    private void printWinner(int currentPlayer) {
+        System.out.print("Player " + currentPlayer + " Wins!!!!");
+    }
+
+    private void setPlayerMove(int colIndex) {
+        try {
+            GameManager.getInstance().setPlayerMove(gameState.getGameId(), colIndex);
+        } catch (Exception e) {
+//            e.printStackTrace();
+            System.out.println(e.getMessage());
+            System.out.println();
+            printWhosNextTurn(gameState.getCurrentPlayer());
+        }
+
     }
 
     private void printBoard(Board board) {
@@ -62,10 +84,9 @@ public class TerminalConnection implements Observer {
             for (int k = 0; k < board.getColumnSize(); k++) {
                 char discToPrint;
                 switch (board.getDiscAtBoard(j, k)) {
-                    case 0: discToPrint = EMPTY;
-                    case 1: discToPrint = OPLAYER;
-                    case 2: discToPrint = XPLAYER;
-                        break;
+                    case 0: discToPrint = EMPTY; break;
+                    case 1: discToPrint = OPLAYER; break;
+                    case 2: discToPrint = XPLAYER; break;
                     default:
                         discToPrint = EMPTY;
 //                        throw new IllegalStateException("Unexpected value: " + board.getDiscAtBoard(j, k));

@@ -1,7 +1,7 @@
 package Model.Player;
 
 import Model.Board;
-import Model.Level.LevelStrategy;
+import Strategy.Level.LevelStrategy;
 
 public class ComputerPlayer extends AbstractPlayer {
 
@@ -23,8 +23,4 @@ public class ComputerPlayer extends AbstractPlayer {
         return levelStrategy.chooseMove(board, getId());
     }
 
-//    @Override
-//    public int Move() {
-//        return getStrategy().chooseMove();
-//    }
 }

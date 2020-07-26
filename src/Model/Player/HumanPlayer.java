@@ -14,8 +14,4 @@ public class HumanPlayer extends AbstractPlayer {
         return 0;
     }
 
-//    @Override
-//    public int Move() {
-//        return getStrategy().chooseMove();
-//    }
 }

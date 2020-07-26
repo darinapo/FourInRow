@@ -1,4 +1,4 @@
-package Model.Level;
+package Strategy.Level;
 
 import Model.Board;
 

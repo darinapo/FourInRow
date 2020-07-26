@@ -1,11 +1,12 @@
 package Utils;
 
+import Exceptions.VerificationException;
 import Model.Board;
 
 public class GameVerificator {
 
     // is the disc at board[rowIndex][colIndex] winning?
-    public static boolean isWinningDisk(Board board, int rowIndex, int colIndex){
+    public static boolean isWinningDisc(Board board, int rowIndex, int colIndex){
         int currentChoice = board.getDiscAtBoard(rowIndex, colIndex);
         int count = 1;
 
@@ -108,6 +109,15 @@ public class GameVerificator {
             if (board.isEmptyCell(i, colIndex)) return i;
         }
         return -1;
+    }
+
+    public static Boolean verifyColumn(Board board, int colIndex) throws VerificationException {
+        if (colIndex < 0 || colIndex > board.getColumnSize()-1){
+            throw new VerificationException(GameProperties.getPropertyValue("101"));
+        }else if (isColumnFull(board, colIndex)) {
+            throw new VerificationException(GameProperties.getPropertyValue("102"));
+        }
+        return true;
     }
 
 }

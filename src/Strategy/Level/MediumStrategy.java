@@ -1,4 +1,4 @@
-package Model.Level;
+package Strategy.Level;
 
 import Model.Board;
 import Utils.GameVerificator;
@@ -12,7 +12,7 @@ public class MediumStrategy implements LevelStrategy {
             if (!GameVerificator.isColumnFull(board,i)) {
                 emptyrow = GameVerificator.firstEmptyRow(board,i);
                 board.setPlayerDisc(emptyrow, i, playerId);
-                if (GameVerificator.isWinningDisk(board, emptyrow, i)) {
+                if (GameVerificator.isWinningDisc(board, emptyrow, i)) {
                     board.clearChoice(emptyrow, i);// reset
                     return i;
                 }
@@ -27,7 +27,7 @@ public class MediumStrategy implements LevelStrategy {
             if (!GameVerificator.isColumnFull(board,i)) {
                 emptyrow = GameVerificator.firstEmptyRow(board,i);
                 board.setPlayerDisc(emptyrow, i, playerId-1); // assume the other player does this
-                if (GameVerificator.isWinningDisk(board, emptyrow, i)) {
+                if (GameVerificator.isWinningDisc(board, emptyrow, i)) {
                     board.clearChoice(emptyrow, i); // reset
                     counter++; // we found a winning disc
                     chosenrow = i; // remember the row

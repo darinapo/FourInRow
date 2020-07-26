@@ -3,9 +3,7 @@ package Model.Player;
 //Maybe abstract factory?
 public class PlayerFactory {
 
-    private int playerId = 0; //default value
-    public AbstractPlayer getPlayer(PlayerEnum player){
-        playerId++;
+    public AbstractPlayer getPlayer(PlayerEnum player, int playerId){
         if(player.equals(PlayerEnum.Human)) {
             return new HumanPlayer(playerId, "Player " + playerId/*, new HumanStrategy()*/);
         }
