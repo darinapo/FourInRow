@@ -1,0 +1,5 @@
+/out/
+.DS_Store
+.gitignore
+src/FourInLine.java
+src/package-info.java
