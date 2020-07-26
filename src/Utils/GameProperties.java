@@ -13,7 +13,7 @@ public class GameProperties {
     static{
         try {
             prop = new Properties();
-            prop.load(new FileInputStream("/Users/yonigotliv/Work/M.B.A/CodingProjects/FourInRow/src/Utils/game.properties"));
+            prop.load(new FileInputStream("/Users/yonigotliv/Work/M.B.A/CodingProjects/FourInRow/resources/game.properties"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }  catch (IOException e) {
