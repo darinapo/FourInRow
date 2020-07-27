@@ -1,11 +1,13 @@
 package Java.Connections;
 
 import Java.Controller.GameManager;
+import Java.Exceptions.NotValidGameModeException;
+import Java.Exceptions.QuitKeyInserted;
 import Java.Model.Board;
 import Java.Model.GameMenu;
 import Java.Model.GameState;
+import Java.Model.Mode.GameMode;
 import Java.Observer.Observer;
-
 import java.util.List;
 import java.util.Scanner;
 
@@ -22,12 +24,33 @@ public class TerminalConnection implements Observer {
 
 
 
-    public void connectGame() {
+    public void connectGame() throws QuitKeyInserted{
         System.out.println("Welcome to Four in a Line!");
         List<String> gameMenu = GameMenu.getInitGameMenu();
         printMenu(gameMenu);
-        int choise = Integer.parseInt(terminalInput.nextLine()); // no exception handling...
-        initGame(choise);
+        int choice;
+        try{
+            choice = Integer.parseInt(terminalInput.nextLine()); // no exception handling...5
+            if(choice == GameMode.values().length-1){
+                throw new QuitKeyInserted("Key number 3 was pressed..");
+            }
+
+            try{
+                initGame(choice);
+            }
+            catch (NotValidGameModeException e){
+                System.out.println("Not valid Game Mode..please choose again from the menu");
+
+            }
+            finally {
+                connectGame();
+            }
+        }
+
+        catch (QuitKeyInserted quitKeyInserted){
+            System.out.println("Quitting game.. Bye Bye");
+            throw new QuitKeyInserted(quitKeyInserted.getMessage());
+        }
     }
 
     private void printMenu(List<String> gameMenu) {
@@ -37,10 +60,15 @@ public class TerminalConnection implements Observer {
         System.out.print("Please choose an option:");
     }
 
-    public void initGame(int gameModeInt) {
-        gameState = GameManager.getInstance().createNewGame(gameModeInt);
-        gameState.attach(this);
-        update();
+    public void initGame(int gameModeInt) throws NotValidGameModeException {
+        try {
+            gameState = GameManager.getInstance().createNewGame(gameModeInt);
+            gameState.attach(this);
+            update();
+        } catch (NotValidGameModeException quitKeyInserted) {
+            quitKeyInserted.printStackTrace();
+            throw new NotValidGameModeException(quitKeyInserted.getMessage());
+        }
     }
 
     @Override

@@ -1,5 +1,6 @@
 package Java.Utils;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,7 +13,8 @@ public class GameProperties {
     static{
         try {
             prop = new Properties();
-            prop.load(new FileInputStream("/Users/yonigotliv/Work/M.B.A/CodingProjects/FourInRow/resources/game.properties"));
+            System.out.println(new File("resources/game.properties").getAbsolutePath());
+            prop.load(new FileInputStream(new File("resources/game.properties").getAbsolutePath()));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }  catch (IOException e) {

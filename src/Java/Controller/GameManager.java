@@ -1,6 +1,8 @@
 package Java.Controller;
 
 import Java.Dao.GameProxyDao;
+import Java.Exceptions.NotValidGameModeException;
+import Java.Exceptions.QuitKeyInserted;
 import Java.Model.GameState;
 import Java.Model.Mode.GameMode;
 import Java.Utils.GameVerificator;
@@ -39,14 +41,18 @@ public class GameManager {
             }
     }
 
-    public GameState createNewGame(int gameModeInt) {
-
+    public GameState createNewGame(int gameModeInt) throws NotValidGameModeException {
+    try {
         GameMode gameMode = GameMode.values()[gameModeInt];
         Long gameId = getNextFreeGameId();
         Game game = new Game(gameMode, gameId);
         game.initialize();
         gameProxyDao.save(game);
         return game.getGameState();
+    }
+    catch (Exception e){
+        throw new NotValidGameModeException("Not valid game mode requested");
+        }
     }
 
     public void closeGame(Long gameId) {

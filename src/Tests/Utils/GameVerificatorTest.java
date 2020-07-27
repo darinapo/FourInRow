@@ -69,7 +69,7 @@ class GameVerificatorTest {
     }
 
     @org.junit.jupiter.api.Test
-    void verifyColumn() {
+    void verifyColumn() throws Exception{
         try {
             Board board = new Board(8, 8, 4);
             assertEquals(true, GameVerificator.verifyColumn(board, 7));
