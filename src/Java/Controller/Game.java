@@ -63,7 +63,6 @@ public class Game extends GameTemplate{
     @Override
     public void endPlay() { //Do we want to pass here the ID of the player?
         System.out.println("End");
-
     }
 
     private void setGameStrategy() {
@@ -73,7 +72,6 @@ public class Game extends GameTemplate{
 
     public void createPlayers(){
         //TODO: Need to chose if he wants to play with a computer hardcoded or 2 players
-        System.out.println("Creating players");
         PlayerFactory playerFactory = new PlayerFactory();
         //initializing players meanwhile we have human and a regular player as a demo
         switch (gameMode) {
@@ -90,7 +88,6 @@ public class Game extends GameTemplate{
                 gameState.addPlayer(playerFactory.getPlayer(PlayerEnum.Computer, Constants.SECOND_PLAYER_ID));
                 break;
         }
-        System.out.println("After Creating players");
     }
 
     public void createBoard(){

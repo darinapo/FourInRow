@@ -1,5 +1,6 @@
-package Java.Model;
+package Tests.Model;
 
+import Java.Model.Board;
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Rule;
@@ -30,34 +31,36 @@ class BoardTest {
 
 
     @Before
-    public void SetBoard(){
-        for(int i=0; i<board.getGameBoard().length;  i++)
-            for(int j =0 ; i<board.getGameBoard()[0].length; j++)
+    public void setBoard(){
+        for(int i=0; i<board.getRowSize();  i++)
+            for(int j =0 ; j<board.getColumnSize(); j++)
                 board.getGameBoard()[i][j] = 4;
     }
     @Test
     void resetBoard() {
         board.resetBoard();
-        Assertions.assertTrue(board.BoardIsNotFull());
+        for(int i=0; i<board.getRowSize();  i++)
+            for(int j =0 ; j<board.getColumnSize(); j++)
+                Assertions.assertTrue(board.isEmptyCell(i, j));
     }
+
+//    @Before
+//    public void SetMove(){
+//        for(int i=0; i<board.getRowSize();  i++)
+//            for(int j =0 ; i<board.getColumnSize(); j++)
+//                board.getGameBoard()[i][j] = 0;
+//        board.setPlayerDisc(0,1,1);
+//    }
+//    @Test
+//    void getRowAfterPlayerMove() {
+//        Assertions.assertEquals(board.GetRowAfterPlayerMove(1),0);
+//    }
+
 
     @Before
-    public void SetMove(){
-        for(int i=0; i<board.getGameBoard().length;  i++)
-            for(int j =0 ; i<board.getGameBoard()[0].length; j++)
-                board.getGameBoard()[i][j] = 0;
-        board.setPlayerDisc(0,1,1);
-    }
-    @Test
-    void getRowAfterPlayerMove() {
-        Assertions.assertEquals(board.GetRowAfterPlayerMove(1),0);
-    }
-
-
-    @Before
-    public void SetAlmostAllBoard(){
-            for (int i = 0; i < board.getGameBoard().length; i++)
-                for (int j = 0; i < board.getGameBoard()[0].length - 1; j++)
+    public void setAlmostAllBoard(){
+            for (int i = 0; i < board.getRowSize(); i++)
+                for (int j = 0; i < board.getColumnSize() - 1; j++)
                     board.getGameBoard()[i][j] = 1;
     }
     @Test
@@ -66,8 +69,7 @@ class BoardTest {
     }
 
     @Before
-    public void ClearSell(){
-
+    public void clearSell(){
         board.getGameBoard()[9][9] = 0;
     }
 

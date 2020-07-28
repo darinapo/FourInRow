@@ -49,5 +49,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="aspectj-1.9.6" level="project" />
   </component>
 </module>

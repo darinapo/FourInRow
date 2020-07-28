@@ -73,7 +73,7 @@ class GameVerificatorTest {
         try {
             Board board = new Board(8, 8, 4);
             assertEquals(true, GameVerificator.verifyColumn(board, 7));
-            assertEquals(true, GameVerificator.verifyColumn(board, 8));
+            GameVerificator.verifyColumn(board, 8);
         }catch (VerificationException e) {
             assertEquals(e.getMessage(), GameProperties.getPropertyValue("101"));
         }

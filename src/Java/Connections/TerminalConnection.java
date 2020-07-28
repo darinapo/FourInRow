@@ -1,13 +1,13 @@
 package Java.Connections;
 
 import Java.Controller.GameManager;
-import Java.Exceptions.NotValidGameModeException;
-import Java.Exceptions.QuitKeyInserted;
 import Java.Model.Board;
 import Java.Model.GameMenu;
 import Java.Model.GameState;
-import Java.Model.Mode.GameMode;
+import Java.Model.GameUtilites;
 import Java.Observer.Observer;
+import Java.Utils.GameProperties;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -24,32 +24,22 @@ public class TerminalConnection implements Observer {
 
 
 
-    public void connectGame() throws QuitKeyInserted{
+    public void connectGame(){
         System.out.println("Welcome to Four in a Line!");
         List<String> gameMenu = GameMenu.getInitGameMenu();
         printMenu(gameMenu);
-        int choice;
         try{
-            choice = Integer.parseInt(terminalInput.nextLine()); // no exception handling...5
-            if(choice == GameMode.values().length-1){
-                throw new QuitKeyInserted("Key number 3 was pressed..");
-            }
-
-            try{
-                initGame(choice);
-            }
-            catch (NotValidGameModeException e){
-                System.out.println("Not valid Game Mode..please choose again from the menu");
-
-            }
-            finally {
-                connectGame();
-            }
+            int choice = Integer.parseInt(terminalInput.nextLine());
+            initGame(choice);
         }
-
-        catch (QuitKeyInserted quitKeyInserted){
-            System.out.println("Quitting game.. Bye Bye");
-            throw new QuitKeyInserted(quitKeyInserted.getMessage());
+        catch (NumberFormatException e){
+            printErrorMessage(GameProperties.getPropertyValue("103"));
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            connectGame();
         }
     }
 
@@ -60,15 +50,10 @@ public class TerminalConnection implements Observer {
         System.out.print("Please choose an option:");
     }
 
-    public void initGame(int gameModeInt) throws NotValidGameModeException {
-        try {
-            gameState = GameManager.getInstance().createNewGame(gameModeInt);
-            gameState.attach(this);
-            update();
-        } catch (NotValidGameModeException quitKeyInserted) {
-            quitKeyInserted.printStackTrace();
-            throw new NotValidGameModeException(quitKeyInserted.getMessage());
-        }
+    public void initGame(int gameModeInt) throws Exception {
+        gameState = GameManager.getInstance().createNewGame(gameModeInt);
+        gameState.attach(this);
+        update();
     }
 
     @Override
@@ -83,9 +68,13 @@ public class TerminalConnection implements Observer {
 
     private void printWhosNextTurn(int currentPlayer) {
         System.out.print("Player " + currentPlayer + ", choose a column: ");
-        int colIndex = Integer.parseInt(terminalInput.nextLine()); // no exception handling...
-        colIndex--;
-        setPlayerMove(colIndex);
+        try {
+            int colIndex = Integer.parseInt(terminalInput.nextLine()); // no exception handling...
+            colIndex--;
+            setPlayerMove(colIndex);
+        } catch (NumberFormatException e) {
+            printErrorMessage(GameProperties.getPropertyValue("103"));
+        }
     }
 
     private void printWinner(int currentPlayer) {
@@ -96,16 +85,17 @@ public class TerminalConnection implements Observer {
         try {
             GameManager.getInstance().setPlayerMove(gameState.getGameId(), colIndex);
         } catch (Exception e) {
-//            e.printStackTrace();
-            System.out.println(e.getMessage());
-            System.out.println();
+            printErrorMessage(e.getMessage());
             printWhosNextTurn(gameState.getCurrentPlayer());
         }
+    }
 
+    private void printErrorMessage(String errorMsg) {
+        System.out.println(errorMsg);
+        System.out.println();
     }
 
     private void printBoard(Board board) {
-        System.out.println("Printing board:");
         System.out.println();
         for (int j = 0; j < board.getRowSize(); j++) {
             System.out.print("|");
