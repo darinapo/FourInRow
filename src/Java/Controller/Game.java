@@ -36,28 +36,12 @@ public class Game extends GameTemplate{
         setGameStrategy();
         createBoard();
         createPlayers();
+        startPlay();
     }
 
     @Override
     public void startPlay() {
         System.out.println("Game Started");
-//        while (winner == -1 ){
-//            int id = gameState.getPlayers().get(currentPlayer).getId();
-//            int col = gameState.getPlayers().get(currentPlayer).getMove(gameState.getBoard()); // this one
-//            int row = gameState.getBoard().GetRowAfterPlayerMove(col);
-//            gameState.getBoard().setPlayerDisc(row,col,id);
-////            gui.display(gameState.getBoard());
-////            if(varificator.Varificate(board,row, col)){
-////                winner = id;
-////                System.out.println("The winner is player:" + id);
-////                break;
-////            }
-//            if(gameState.getBoard().BoardIsNotFull()){
-//                NextPlayerTurn();
-//                continue;
-//            }
-//
-//        }
     }
 
     @Override
@@ -83,16 +67,17 @@ public class Game extends GameTemplate{
                 gameState.addPlayer(playerFactory.getPlayer(PlayerEnum.Human, Constants.FIRST_PLAYER_ID));
                 gameState.addPlayer(playerFactory.getPlayer(PlayerEnum.Human, Constants.SECOND_PLAYER_ID));
                 break;
-            case ComputerVsComputer:
-                gameState.addPlayer(playerFactory.getPlayer(PlayerEnum.Computer, Constants.FIRST_PLAYER_ID));
-                gameState.addPlayer(playerFactory.getPlayer(PlayerEnum.Computer, Constants.SECOND_PLAYER_ID));
-                break;
+//            case ComputerVsComputer:
+//                gameState.addPlayer(playerFactory.getPlayer(PlayerEnum.Computer, Constants.FIRST_PLAYER_ID));
+//                gameState.addPlayer(playerFactory.getPlayer(PlayerEnum.Computer, Constants.SECOND_PLAYER_ID));
+//                break;
         }
     }
 
     public void createBoard(){
         //Future - add options to define the board space
-        gameState.setBoard(new Board(8,8, 4)); //will need to be changed
+        Board board = new Board(8,8,4);//(Board) DebugProxy.newInstance(new Board(8,8,4));
+        gameState.setBoard(board);
     }
 
     public void setPlayerMove (int colIndex) {

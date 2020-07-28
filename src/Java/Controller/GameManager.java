@@ -1,6 +1,8 @@
 package Java.Controller;
 
 import Java.Dao.GameProxyDao;
+import Java.Events.EventsEnum;
+import Java.Events.EventsHandler;
 import Java.Model.GameState;
 import Java.Model.Mode.GameMode;
 import Java.Utils.GameVerificator;
@@ -17,10 +19,10 @@ public class GameManager {
         gameProxyDao = new GameProxyDao();
     }
 
-    public static GameManager getInstance(){
-        if(gameManager == null){
+    public static GameManager getInstance() {
+        if (gameManager == null) {
             synchronized (GameManager.class) {
-                if(gameManager == null){
+                if (gameManager == null) {
                     gameManager = new GameManager();
                 }
             }
@@ -34,25 +36,30 @@ public class GameManager {
 
     public void setPlayerMove(Long gameId, int colIndex) throws Exception {
         Game game = gameProxyDao.get(gameId).get();
-            if (GameVerificator.verifyColumn(game.gameState.getBoard(), colIndex)) {
-                game.setPlayerMove(colIndex);
-            }
+        if (GameVerificator.verifyColumn(game.gameState.getBoard(), colIndex)) {
+            game.setPlayerMove(colIndex);
+        }
     }
 
-    public GameState createNewGame(int gameModeInt) throws Exception {
-
-        GameMode gameMode = GameMode.values()[gameModeInt];
-        Long gameId = getNextFreeGameId();
-        Game game = new Game(gameMode, gameId);
-        game.initialize();
-        gameProxyDao.save(game);
-        return game.getGameState();
-
+    public GameState createNewGame(int gameMenuItem) throws Exception {
+        GameMode gameMode = GameMode.values()[gameMenuItem];
+        if (gameMode.equals(GameMode.Quit)){
+            EventsHandler.getInstance().notifyEvent(EventsEnum.QUIT);
+            return null;
+        }else {
+            Long gameId = getNextFreeGameId();
+//            Game game = (Game) DebugProxy.newInstance(new Game(gameMode, gameId));
+            Game game = new Game(gameMode, gameId);
+            game.initialize();
+            gameProxyDao.save(game);
+            return game.getGameState();
+        }
     }
 
     public void closeGame(Long gameId) {
         Optional<Game> game = gameProxyDao.get(gameId);
         gameProxyDao.delete(game.get());
+//        DebugProxy.close_inner_file();
     }
 
     private Long getNextFreeGameId() {

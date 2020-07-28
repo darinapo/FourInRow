@@ -11,8 +11,8 @@ public class GameStrategyFactory {
                 break;
             case PlayerVsPlayer: gameStrategy = new PlayerVsPlayerStrategy();
                 break;
-            case ComputerVsComputer: gameStrategy = new ComputerVsComputerStrategy();
-                break;
+//            case ComputerVsComputer: gameStrategy = new ComputerVsComputerStrategy();
+//                break;
             default:
                 gameStrategy = new PlayerVsComputerStrategy();
         }

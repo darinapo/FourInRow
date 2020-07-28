@@ -1,6 +1,8 @@
 package Java.Strategy.GameStrategy;
 
 import Java.Controller.GameManager;
+import Java.Events.EventsEnum;
+import Java.Events.EventsHandler;
 import Java.Model.GameState;
 import Java.Utils.GameVerificator;
 
@@ -17,7 +19,8 @@ public class ComputerVsComputerStrategy implements GameStrategy {
         }else {
             gameState.setNextPlayerTurn();
         }
-        gameState.notifyStateChanged();
+//        gameState.notifyStateChanged();
+        EventsHandler.getInstance().notifyEvent(EventsEnum.MOVE_PLAYED);
 
         try {
             sleep(1);

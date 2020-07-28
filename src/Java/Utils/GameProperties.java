@@ -13,7 +13,6 @@ public class GameProperties {
     static{
         try {
             prop = new Properties();
-            System.out.println(new File("resources/game.properties").getAbsolutePath());
             prop.load(new FileInputStream(new File("resources/game.properties").getAbsolutePath()));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
